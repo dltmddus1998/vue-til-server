@@ -18,12 +18,11 @@ import { authenticateUser } from './utils/auth.js';
 // mongo db
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
-mongoose.connect(
-  'mongodb+srv://test:1234@cluster0-ypgh5.mongodb.net/test?retryWrites=true&w=majority',
-  {
-    useNewUrlParser: true,
-  },
-);
+
+mongoose.connect('mongodb+srv://dltmddus1998:DG5zxfyaBgCEKCb8@vue-test.x3shlac.mongodb.net/', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 mongoose.Promise = global.Promise;
 
 // server setup
@@ -32,7 +31,6 @@ async function configServer() {
   port = 3000 || (await detectPort(3000));
 }
 configServer();
-
 // express setup
 const app = express();
 app.use(cors());
@@ -48,10 +46,4 @@ app.use('/posts', authenticateUser, posts);
 app.use('/api', docs);
 
 // start
-app.listen(port, () =>
-  console.log(
-    `${chalk.white
-      .bgHex('#41b883')
-      .bold(`VUE TIL SERVER IS RUNNING ON ${port}`)}`,
-  ),
-);
+app.listen(port, () => console.log(`${chalk.white.bgHex('#41b883').bold(`VUE TIL SERVER IS RUNNING ON ${port}`)}`));
